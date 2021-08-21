@@ -12,11 +12,11 @@
                     <div class="card">
                         <div class="card-header"><h4>Add Contact</h4></div>
                         <div class="card-body">
-                            <form name="my-form" action="reg" method="Post" >
+                            <form name="my-form" action="submit_contact" method="Post" >
                                 <div class="form-group row">
-                                    <label for="id" class="col-md-4 col-form-label text-md-right">User ID</label>
+                                    <label for="user_id" class="col-md-4 col-form-label text-md-right">User ID</label>
                                     <div class="col-md-6">
-                                        <input type="number" id="id" class="form-control" name="id">
+                                        <input type="number" id="user_id" class="form-control" name="user_id">
                                     </div>
                                 </div>
                                 
@@ -35,42 +35,22 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="address" class="form-control" name="address">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="reg_date" class="col-md-4 col-form-label text-md-right">Reg. date</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="reg_date" class="form-control" name="reg_date">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="upload_photo" class="col-md-4 col-form-label text-md-right">Upload photo</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="upload_photo" class="form-control" name="upload_photo">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-                                    <div class="col-md-6">
-                                        <input type="password" id="password" class="form-control" name="password">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
                                     <label for="phone" class="col-md-4 col-form-label text-md-right">Phone Number</label>
                                     <div class="col-md-6">
                                         <input type="number" id="phone" class="form-control" name="phone">
                                     </div>
                                 </div>
+                                
+                                <div class="form-group row">
+                                    <label for="message" class="col-md-4 col-form-label text-md-right">Message</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="message" class="form-control" name="message">
+                                    </div>
+                                </div>
+                                
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Add Contact
                                     </button>
                                 </div>
                             </form>

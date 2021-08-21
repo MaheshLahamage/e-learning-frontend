@@ -12,11 +12,11 @@
                     <div class="card">
                         <div class="card-header"><h4>Add Feedback</h4></div>
                         <div class="card-body">
-                            <form name="my-form" action="reg" method="Post" >
+                            <form name="my-form" action="submit_feedback" method="Post" >
                                 <div class="form-group row">
                                     <label for="id" class="col-md-4 col-form-label text-md-right">User ID</label>
                                     <div class="col-md-6">
-                                        <input type="number" id="id" class="form-control" name="id">
+                                        <input type="number" id="id" class="form-control" name="user_id">
                                     </div>
                                 </div>
                                 
@@ -35,42 +35,14 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
+                                    <label for="feedback" class="col-md-4 col-form-label text-md-right">Feedback</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="address" class="form-control" name="address">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="reg_date" class="col-md-4 col-form-label text-md-right">Reg. date</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="reg_date" class="form-control" name="reg_date">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="upload_photo" class="col-md-4 col-form-label text-md-right">Upload photo</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="upload_photo" class="form-control" name="upload_photo">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-                                    <div class="col-md-6">
-                                        <input type="password" id="password" class="form-control" name="password">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="phone" class="col-md-4 col-form-label text-md-right">Phone Number</label>
-                                    <div class="col-md-6">
-                                        <input type="number" id="phone" class="form-control" name="phone">
+                                        <input type="text" id="feedback" class="form-control" name="feedback">
                                     </div>
                                 </div>
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Submit Feedback
                                     </button>
                                 </div>
                             </form>

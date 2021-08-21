@@ -1,7 +1,7 @@
 <%@ include file="header.jsp" %>
 <html>
 <head>
-	<title>Registration Page</title>
+	<title>Admin Registration Page</title>
 </head>
 <body>
 
@@ -12,7 +12,7 @@
                     <div class="card">
                         <div class="card-header"><h4>Register Here</h4></div>
                         <div class="card-body">
-                            <form name="my-form" action="registrationProcess" method="Post" modelAttribute="user">
+                            <form name="my-form" action="adminregistrationProcess" method="Post" modelAttribute="admin">
                                 
                                 <div class="form-group row">
                                     <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
@@ -21,38 +21,11 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label for="phone" class="col-md-4 col-form-label text-md-right">Phone Number</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="phone" class="form-control" name="phone">
-                                    </div>
-                                </div>
                                 
                                 <div class="form-group row">
                                     <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail</label>
                                     <div class="col-md-6">
                                         <input type="email" id="email" class="form-control" name="email">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="address" class="form-control" name="address">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="reg_date" class="col-md-4 col-form-label text-md-right">Reg. date</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="reg_date" class="form-control" name="reg_date">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="upload_photo" class="col-md-4 col-form-label text-md-right">Upload photo</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="upload_photo" class="form-control" name="upload_photo">
                                     </div>
                                 </div>
 
