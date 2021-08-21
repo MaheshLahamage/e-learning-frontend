@@ -13,10 +13,13 @@
 	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 	    <div class="navbar-nav">
 	      <a class="nav-item nav-link active" href="Home">Home <span class="sr-only">(current)</span></a>
-	      <a class="nav-item nav-link" href="user_registration">Registration Form</a>
-	      <a class="nav-item nav-link" href="add_contact">Contact Form</a>
-	      <a class="nav-item nav-link" href="add_feedback">Feedback Form</a>
-	      <a class="nav-item nav-link" href="add_course">Cource Form</a>
+	      <a class="nav-item nav-link" href="user_registration">Registration</a>
+	      <a class="nav-item nav-link" href="add_contact">Add Contact</a>
+	      <a class="nav-item nav-link" href="add_feedback">Add Feedback</a>
+	      <a class="nav-item nav-link" href="add_course">Add Cource</a>
+	      <a class="nav-item nav-link" href="users">Users</a>
+	      <a class="nav-item nav-link" href="courses">Courses</a>
+	      <a class="nav-item nav-link" href="feedbacks">Feedbacks</a>
 	    </div>
 	  </div>
 	</nav>

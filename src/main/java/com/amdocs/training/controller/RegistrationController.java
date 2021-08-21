@@ -23,16 +23,15 @@ public class RegistrationController {
 	@PostMapping("/registrationProcess")
 	public ModelAndView sign_up(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
-		int id = Integer.parseInt(request.getParameter("id"));
 		String username = request.getParameter("username");
+		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
 		String reg_date = request.getParameter("reg_date");
 		String password = request.getParameter("password");
 		String upload_photo = request.getParameter("upload_photo");
-		long phone = Long.parseLong(request.getParameter("phone"));
 
-		User user = new User(id, username, phone, email, address, reg_date, password, upload_photo);
+		User user = new User(null, username, phone, email, address, reg_date, upload_photo, password);
 		System.out.println("**********************"+user+"**********************");
 		UserDAO dao = new UserDAOImpl();
 		if(dao.saveUser(user)) {
