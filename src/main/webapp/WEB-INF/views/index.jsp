@@ -10,8 +10,8 @@
 		<h4>Elerning Application</h4>
 	
 		<h2>Welcome to Online Portal</h2>
-		<a href="welcome">Welcome Page</a> |
-		<a href="sign_up">Sign Up</a>
+		<a href="user_login">Log in</a> |
+		<a href="user_registration">Sign Up</a>
 	</div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <%@ include file="header.jsp" %>
 <html>
 <head>
-	<title>Course Page</title>
+	<title>Feedback Page</title>
 </head>
 <body>
 

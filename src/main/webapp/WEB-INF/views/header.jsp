@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <html>
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -11,7 +13,7 @@
 	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 	    <div class="navbar-nav">
 	      <a class="nav-item nav-link active" href="Home">Home <span class="sr-only">(current)</span></a>
-	      <a class="nav-item nav-link" href="sign_up">Registration Form</a>
+	      <a class="nav-item nav-link" href="user_registration">Registration Form</a>
 	      <a class="nav-item nav-link" href="add_contact">Contact Form</a>
 	      <a class="nav-item nav-link" href="add_feedback">Feedback Form</a>
 	      <a class="nav-item nav-link" href="add_course">Cource Form</a>

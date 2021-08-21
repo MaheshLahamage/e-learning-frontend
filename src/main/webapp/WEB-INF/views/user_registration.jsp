@@ -1,7 +1,7 @@
 <%@ include file="header.jsp" %>
 <html>
 <head>
-	<title>Contact Page</title>
+	<title>Registration Page</title>
 </head>
 <body>
 
@@ -10,9 +10,9 @@
 	    <div class="row justify-content-center">
             <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header"><h4>Add Contact</h4></div>
+                        <div class="card-header"><h4>Register Here</h4></div>
                         <div class="card-body">
-                            <form name="my-form" action="reg" method="Post" >
+                            <form name="my-form" action="registrationProcess" method="Get" modelAttribute="user">
                                 <div class="form-group row">
                                     <label for="id" class="col-md-4 col-form-label text-md-right">User ID</label>
                                     <div class="col-md-6">
