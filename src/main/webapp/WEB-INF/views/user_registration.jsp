@@ -12,7 +12,7 @@
                     <div class="card">
                         <div class="card-header"><h4>Register Here</h4></div>
                         <div class="card-body">
-                            <form name="my-form" action="registrationProcess" method="Get" modelAttribute="user">
+                            <form name="my-form" action="registrationProcess" method="Post" modelAttribute="user">
                                 <div class="form-group row">
                                     <label for="id" class="col-md-4 col-form-label text-md-right">User ID</label>
                                     <div class="col-md-6">
@@ -80,8 +80,5 @@
             </div>
          </div>
 
-
-
-//JSTL Core Tag Library
 </body>
 </html>
