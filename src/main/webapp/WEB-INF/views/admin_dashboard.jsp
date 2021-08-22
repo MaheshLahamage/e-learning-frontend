@@ -1,4 +1,5 @@
 <%@ include file="header.jsp" %>
+<%@ include file="admin_login_req.jsp" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -45,25 +46,19 @@
                         <td>${user.name}</td>
                         <td>${user.email}</td>
                         <td>${user.address}</td>
-                        <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
                             <td><a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success custom-width">edit</a></td>
-                        </sec:authorize>
-                        <sec:authorize access="hasRole('ADMIN')">
                             <td><a href="<c:url value='/delete-user-${user.ssoId}' />" class="btn btn-danger custom-width">delete</a></td>
-                        </sec:authorize>
+
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
-        <sec:authorize access="hasRole('ADMIN')">
             <div class="well">
                 <a href="<c:url value='/newuser' />">Add New User</a>
             </div>
-        </sec:authorize>
     </div>
 		    </div>
 	   </div>
-   </div>
 </body>
 </html>

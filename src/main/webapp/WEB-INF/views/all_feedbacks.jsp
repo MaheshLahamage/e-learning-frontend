@@ -1,4 +1,5 @@
 <%@ include file="header.jsp" %>
+<%@ include file="login_req.jsp" %>
 <head>
 <meta charset="ISO-8859-1">
 <title>Feedback List</title>
@@ -30,6 +31,5 @@
                 </tbody>
             </table>
         </div>
-	</div>
 </body>
 </html>

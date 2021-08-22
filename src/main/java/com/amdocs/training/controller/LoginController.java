@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.amdocs.training.dao.AdminDAO;
@@ -14,9 +15,11 @@ import com.amdocs.training.dao.UserDAO;
 import com.amdocs.training.dao.impl.AdminDAOImpl;
 import com.amdocs.training.dao.impl.UserDAOImpl;
 import com.amdocs.training.model.Admin;
+import com.amdocs.training.model.Auth;
 import com.amdocs.training.model.User;
 
 @Controller
+@SessionAttributes("auth")
 public class LoginController {
 
 	@GetMapping("/user_login")
@@ -26,6 +29,7 @@ public class LoginController {
 	
 	@PostMapping("/loginProcess")
 	public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response) {
+		
 		ModelAndView mv = new ModelAndView();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -34,8 +38,10 @@ public class LoginController {
 		UserDAO dao = new UserDAOImpl();
 		User user = dao.validateUser(username, password);
 		 if (null != user) {
+			Auth auth = new Auth(user.getName(),"USER");
 			System.out.println("User "+user.getUser_id()+" is authenticated!");
 			mv.addObject("user", user);
+			mv.addObject("auth", auth);
 			mv.setViewName("user_dashboard");
 		}
 		else {
@@ -61,8 +67,10 @@ public class LoginController {
 		AdminDAO dao = new AdminDAOImpl();
 		Admin admin = dao.validateAdmin(username, password);
 		 if (null != admin) {
-			System.out.println("User "+admin.getAdmin_id()+" is authenticated!");
+			Auth auth = new Auth(admin.getName(),"ADMIN");
+			System.out.println("Admin "+admin.getAdmin_id()+" is authenticated!");
 			mv.addObject("admin", admin);
+			mv.addObject("auth", auth);
 			mv.setViewName("admin_dashboard");
 		}
 		else {

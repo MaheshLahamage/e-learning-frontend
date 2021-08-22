@@ -1,4 +1,5 @@
 <%@ include file="header.jsp" %>
+<%@ include file="admin_login_req.jsp" %>
 <html>
 <head>
 	<title>Course Page</title>

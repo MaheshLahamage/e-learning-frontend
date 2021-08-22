@@ -1,4 +1,5 @@
 <%@ include file="header.jsp" %>
+<%@ include file="admin_login_req.jsp" %>
 <head>
 <meta charset="ISO-8859-1">
 <title>Contact List</title>

@@ -1,4 +1,5 @@
 <%@ include file="header.jsp" %>
+<%@ include file="login_req.jsp" %>
 <html>
 <head>
 	<title>Contact Page</title>

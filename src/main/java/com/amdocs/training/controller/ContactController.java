@@ -37,7 +37,8 @@ public class ContactController {
 		if(dao.saveContact(contact)) {
 			System.out.println("Contact From "+contact.getUser_id()+" added in database!");
 			mv.addObject("username", contact.getName());
-			mv.setViewName("all_contacts");
+//			mv.setViewName("all_contacts");
+			mv.setViewName("contact");
 		}
 		else {
 			System.out.println("Error while adding Contact from "+contact.getUser_id()+" in database!");
@@ -55,7 +56,7 @@ public class ContactController {
 		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("contacts", contacts);
-		mv.setViewName("all_contacts");
+		mv.setViewName("contact");
 		
 		return mv;
 	}
