@@ -1,4 +1,5 @@
 <%@ include file="header.jsp" %>
+<%@ include file="login_req.jsp" %>
 <head>
 <meta charset="ISO-8859-1">
 <title>Contacts</title>
@@ -6,7 +7,6 @@
 </head>
 <body>
 	<div class="container jumbotron">
-	<c:if test="${auth.roll != Null}">
 	<div class="panel-heading"><span class="lead">All Contacts</span></div>
             <table class="table table-hover">
                 <thead>
@@ -29,7 +29,6 @@
 	                <c:forEach items="${Cont}" var="contact">
 	                    <tr>
 	                        <td>${contact.contact_id}</td>
-	                        <td>${auth.username}</td>
 	                        <td>${contact.user_id}</td>
 	                        <td>${contact.name}</td>
 	                        <td>${contact.phone_no}</td>
@@ -40,6 +39,5 @@
 	                
                 </tbody>
             </table>
-		</c:if>
         </div>
 </body>

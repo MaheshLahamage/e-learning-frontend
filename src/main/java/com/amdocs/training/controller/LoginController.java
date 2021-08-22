@@ -38,7 +38,7 @@ public class LoginController {
 		UserDAO dao = new UserDAOImpl();
 		User user = dao.validateUser(username, password);
 		 if (null != user) {
-			Auth auth = new Auth(user.getName(),"USER");
+			Auth auth = new Auth(user.getName(), user, "USER");
 			System.out.println("User "+user.getUser_id()+" is authenticated!");
 			mv.addObject("user", user);
 			mv.addObject("auth", auth);
@@ -67,7 +67,7 @@ public class LoginController {
 		AdminDAO dao = new AdminDAOImpl();
 		Admin admin = dao.validateAdmin(username, password);
 		 if (null != admin) {
-			Auth auth = new Auth(admin.getName(),"ADMIN");
+			Auth auth = new Auth(admin.getName(), admin, "ADMIN");
 			System.out.println("Admin "+admin.getAdmin_id()+" is authenticated!");
 			mv.addObject("admin", admin);
 			mv.addObject("auth", auth);

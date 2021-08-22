@@ -15,7 +15,7 @@ public class LogoutController {
 	@GetMapping("/logout")
 	public ModelAndView logout() {
 		ModelAndView mv = new ModelAndView();
-		Auth auth = new Auth(null,null);
+		Auth auth = new Auth(null, null, null);
 		mv.addObject("auth", auth);
 		mv.setViewName("index");
 		return mv;

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.amdocs.training.dao.ContactDAO;
 import com.amdocs.training.dao.impl.ContactDAOImpl;
+import com.amdocs.training.model.Auth;
 import com.amdocs.training.model.Contact;
 
 @Controller
@@ -25,7 +26,14 @@ public class ContactController {
 	@PostMapping("/submit_contact")
 	public ModelAndView submit_feeback(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
-		Integer user_id = Integer.parseInt(request.getParameter("user_id"));
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		Integer user_id = null;
+		if(auth.getRoll() == "USER") {
+			user_id = Integer.parseInt(request.getParameter("user_id"));
+		}
+		else if(auth.getRoll() == "ADMIN") {
+			user_id = Integer.parseInt(request.getParameter("admin_id"));
+		}
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");

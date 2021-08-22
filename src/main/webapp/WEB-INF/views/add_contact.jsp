@@ -14,20 +14,14 @@
                         <div class="card-header"><h4>Add Contact</h4></div>
                         <div class="card-body">
                             <form name="my-form" action="submit_contact" method="Post" >
-                                <div class="form-group row">
-                                    <label for="user_id" class="col-md-4 col-form-label text-md-right">User ID</label>
-                                    <div class="col-md-6">
-                                        <input type="number" id="user_id" class="form-control" name="user_id">
-                                    </div>
-                                </div>
+								<c:if test="${auth.roll == 'USER'}">
+                                	<input type="hidden" id="user_id" name="user_id"  value="${auth.obj.user_id }">
+                                </c:if>
+                                <c:if test="${auth.roll == 'ADMIN'}">
+                                	<input type="hidden" id="admin_id" name="admin_id"  value="${auth.obj.admin_id }">
+                                </c:if>
+                                <input type="hidden" id="username" name="username" value="${auth.obj.name }">
                                 
-                                <div class="form-group row">
-                                    <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="username" class="form-control" name="username">
-                                    </div>
-                                </div>
-
                                 <div class="form-group row">
                                     <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail</label>
                                     <div class="col-md-6">
@@ -60,9 +54,5 @@
                  </div>
             </div>
          </div>
-
-
-
-//JSTL Core Tag Library
 </body>
 </html>
