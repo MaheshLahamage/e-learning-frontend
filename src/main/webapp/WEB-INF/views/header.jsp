@@ -17,20 +17,20 @@
 	    <div class="navbar-nav">
 			<a class="nav-item nav-link active" href="Home">Home <span class="sr-only">(current)</span></a>
 				 
-			<c:if test="${auth.roll == 'USER'}">
-			</c:if> 
 			<c:if test="${auth.roll != null}">
 				<a class="nav-item nav-link" href="contacts">Contacts</a>
 				<a class="nav-item nav-link" href="courses">Courses</a>
 				<a class="nav-item nav-link" href="feedbacks">Feedbacks</a>
+			</c:if>    
+			<c:if test="${auth.roll == 'USER'}">
 				<a class="nav-item nav-link" href="add_contact">Add Contact</a>
 				<a class="nav-item nav-link" href="add_feedback">Add Feedback</a>
-			</c:if>    
+			</c:if> 
 			<c:if test="${auth.roll == 'ADMIN'}">
-				<a class="nav-item nav-link" href="admin_registration">Admin Registration</a>
 				<a class="nav-item nav-link" href="add_course">Add Cource</a>
 				<a class="nav-item nav-link" href="users">Users</a>
 				<a class="nav-item nav-link" href="admins">Admins</a>
+				<a class="nav-item nav-link" href="admin_registration">Admin Registration</a>
 			</c:if>  
 			<c:if test="${auth.roll == 'USER'}">
 	    		<a class="nav-item" >User ${auth.username}</a>

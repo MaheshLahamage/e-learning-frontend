@@ -18,7 +18,12 @@
                                 	<input type="hidden" id="user_id" name="user_id"  value="${auth.obj.user_id }">
                                 </c:if>
                                 <c:if test="${auth.roll == 'ADMIN'}">
-                                	<input type="hidden" id="admin_id" name="admin_id"  value="${auth.obj.admin_id }">
+									<div class="form-group row">
+									    <label for="user_id" class="col-md-4 col-form-label text-md-right">User ID</label>
+									    <div class="col-md-6">
+									        <input type="number" id="user_id" class="form-control" name="user_id">
+									    </div>
+									</div>
                                 </c:if>
                                 <input type="hidden" id="username" name="username" value="${auth.obj.name }">
                                 
