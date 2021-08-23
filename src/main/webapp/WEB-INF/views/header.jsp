@@ -5,7 +5,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
