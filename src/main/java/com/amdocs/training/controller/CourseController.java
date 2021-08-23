@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.amdocs.training.dao.CourseDAO;
+import com.amdocs.training.dao.EnrollDAO;
 import com.amdocs.training.dao.impl.CourseDAOImpl;
+import com.amdocs.training.dao.impl.EnrollDAOImpl;
+import com.amdocs.training.model.Auth;
 import com.amdocs.training.model.Course;
+import com.amdocs.training.model.Enroll;
+import com.amdocs.training.model.User;
 
 @Controller
 public class CourseController {
@@ -45,15 +50,27 @@ public class CourseController {
 		return mv;
 	}
 
+	@SuppressWarnings("unused")
 	@GetMapping("/courses")
-	public ModelAndView all_courses() {
+	public ModelAndView all_courses(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
 		CourseDAO dao = new CourseDAOImpl();
+		EnrollDAO enrolldao = new EnrollDAOImpl();
 		List<Course> courses = dao.findAll();
+		List<Course> enrolled = null;
+		if(auth.getRoll()=="USER") {
+			User user = (User)auth.getObj();
+			enrolled = enrolldao.getEnrolledCourses(user.getUser_id());
+		}
 		for(Course i: courses) {
+			System.out.println(i);
+		}
+		for(Course i: enrolled) {
 			System.out.println(i);
 		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("courses", courses);
+		mv.addObject("enrolled", enrolled);
 		mv.setViewName("all_courses");
 		
 		return mv;
