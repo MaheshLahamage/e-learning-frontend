@@ -18,8 +18,8 @@ import com.amdocs.training.model.User;
 public class UserController {
 
 	@GetMapping("/user_registration")
-	public String sign_up() {
-		return "user_registration";
+	public ModelAndView sign_up() {
+		return new ModelAndView("user_registration");
 	}
 	
 	@PostMapping("/registrationProcess")

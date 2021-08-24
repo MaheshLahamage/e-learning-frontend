@@ -24,13 +24,21 @@ import com.amdocs.training.model.User;
 public class CourseController {
 
 	@GetMapping("/add_course")
-	public String add_course() {
-		return "add_course";
+	public ModelAndView add_course(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() != "ADMIN") {
+			return new ModelAndView("redirect:/admin_login");
+		}
+		return new ModelAndView("add_course");
 	}
 	
 	@PostMapping("/submit_course")
 	public ModelAndView submit_course(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView();
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() != "ADMIN") {
+			return new ModelAndView("redirect:/admin_login");
+		}
+		ModelAndView mv = new ModelAndView("redirect:/courses");
 		String c_name = request.getParameter("c_name");
 		double c_fees = Double.parseDouble(request.getParameter("c_fees"));
 		String c_desp = request.getParameter("c_desp");
@@ -42,7 +50,6 @@ public class CourseController {
 		if(dao.saveCourse(course)) {
 			System.out.println("Course "+course.getC_name()+" added in database!");
 			mv.addObject("c_name", course.getC_name());
-			mv.setViewName("index");
 		}
 		else {
 			System.out.println("Error while adding Course from "+course.getC_name()+" in database!");
@@ -51,10 +58,13 @@ public class CourseController {
 		return mv;
 	}
 
-	@SuppressWarnings("unused")
 	@GetMapping("/courses")
 	public ModelAndView all_courses(HttpServletRequest request, HttpServletResponse response) {
 		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() == null) {
+			return new ModelAndView("redirect:/user_login");
+		}
+		ModelAndView mv = new ModelAndView("all_courses");
 		CourseDAO dao = new CourseDAOImpl();
 		EnrollDAO enrolldao = new EnrollDAOImpl();
 		List<Course> courses = dao.findAll();
@@ -73,10 +83,8 @@ public class CourseController {
 			}
 			other.removeAll(enrolled);
 		}
-		ModelAndView mv = new ModelAndView();
 		mv.addObject("courses", other);
 		mv.addObject("enrolled", enrolled);
-		mv.setViewName("all_courses");
 		
 		return mv;
 	}

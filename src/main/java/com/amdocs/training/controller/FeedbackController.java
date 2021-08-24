@@ -12,19 +12,28 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.amdocs.training.dao.FeedbackDAO;
 import com.amdocs.training.dao.impl.FeedbackDAOImpl;
+import com.amdocs.training.model.Auth;
 import com.amdocs.training.model.Feedback;
 
 @Controller
 public class FeedbackController {
 
 	@GetMapping("/add_feedback")
-	public String add_feedback() {
-		return "add_feedback";
+	public ModelAndView add_feedback(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() == null) {
+			return new ModelAndView("redirect:/user_login");
+		}
+		return new ModelAndView("add_feedback");
 	}
 	
 	@PostMapping("/submit_feedback")
 	public ModelAndView submit_feeback(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView();
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() == null) {
+			return new ModelAndView("redirect:/user_login");
+		}
+		ModelAndView mv = new ModelAndView("redirect:/feedbacks");
 		Integer user_id = Integer.parseInt(request.getParameter("user_id"));
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
@@ -36,7 +45,6 @@ public class FeedbackController {
 		if(dao.saveFeedback(feedback)) {
 			System.out.println("Feedback From "+feedback.getUser_id()+" added in database!");
 			mv.addObject("username", feedback.getName());
-			mv.setViewName("all_feedbacks");
 		}
 		else {
 			System.out.println("Error while adding Feedback from "+feedback.getUser_id()+" in database!");
@@ -46,13 +54,17 @@ public class FeedbackController {
 	}
 
 	@GetMapping("/feedbacks")
-	public ModelAndView all_feedback() {
+	public ModelAndView all_feedback(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() == null) {
+			return new ModelAndView("redirect:/user_login");
+		}
+		ModelAndView mv = new ModelAndView("all_feedbacks");
 		FeedbackDAO dao = new FeedbackDAOImpl();
 		List<Feedback> feedbacks = dao.findAll();
 		for(Feedback i: feedbacks) {
 			System.out.println(i);
 		}
-		ModelAndView mv = new ModelAndView();
 		mv.addObject("feedbacks", feedbacks);
 		mv.setViewName("all_feedbacks");
 		

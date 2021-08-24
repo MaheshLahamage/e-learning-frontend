@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.amdocs.training.dao.EnrollDAO;
 import com.amdocs.training.dao.impl.EnrollDAOImpl;
+import com.amdocs.training.model.Auth;
 import com.amdocs.training.model.Enroll;
 
 @Controller
@@ -17,6 +18,10 @@ public class EnrollController {
 	
 	@PostMapping("/enrollProcess")
 	public ModelAndView enroll(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() == null) {
+			return new ModelAndView("redirect:/user_login");
+		}
 		ModelAndView mv = new ModelAndView("redirect:/courses");
 		int user_id = Integer.parseInt(request.getParameter("user_id"));
 		int course_id = Integer.parseInt(request.getParameter("course_id"));
@@ -39,6 +44,10 @@ public class EnrollController {
 	
 	@PostMapping("/unenrollProcess")
 	public ModelAndView unenroll(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() == null) {
+			return new ModelAndView("redirect:/user_login");
+		}
 		ModelAndView mv = new ModelAndView("redirect:/courses");
 		int user_id = Integer.parseInt(request.getParameter("user_id"));
 		int course_id = Integer.parseInt(request.getParameter("course_id"));
@@ -58,35 +67,4 @@ public class EnrollController {
 		}
 		return mv;
 	}
-
-//	@GetMapping("/users")
-//	public ModelAndView all_users() {
-//		EnrollDAO dao = new EnrollDAOImpl();
-//		List<Enroll> users = dao.findAll();
-//		for(Enroll i: users) {
-//			System.out.println(i);
-//		}
-//		ModelAndView mv = new ModelAndView();
-//		mv.addObject("users", users);
-//		mv.setViewName("all_users");
-//		
-//		return mv;
-//	}
-
-//	@GetMapping("/user/{id}")
-//	public User getUser(@PathVariable int id) {
-//		User user = dao.getUserById(id);
-//		return user;
-//	}
-//	@GetMapping("/users")
-//	public List<User> getAllUser() {
-//		List<User> list = dao.findAll();
-//		return list;
-//	
-//	}
-//	@GetMapping("/reg")
-//	public List<User> setUser() {
-//		return list;
-//	
-//	}
 }

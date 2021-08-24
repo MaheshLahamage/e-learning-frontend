@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.amdocs.training.dao.AdminDAO;
 import com.amdocs.training.dao.impl.AdminDAOImpl;
 import com.amdocs.training.model.Admin;
+import com.amdocs.training.model.Auth;
 
 @Controller
 public class AdminController {
@@ -20,13 +21,13 @@ public class AdminController {
 //Admin Registration Controller
 
 	@GetMapping("/admin_registration")
-	public String adminsign_up() {
-		return "admin_registration";
+	public ModelAndView adminsign_up() {
+		return new ModelAndView("admin_registration");
 	}
 	
 	@PostMapping("/adminregistrationProcess")
 	public ModelAndView adminsign_up(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView();
+		ModelAndView mv = new ModelAndView("redirect:/admin_login");
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -37,17 +38,20 @@ public class AdminController {
 		if(dao.saveAdmin(admin)) {
 			System.out.println("Admin "+admin.getName()+" added in database!");
 			mv.addObject("username", admin.getName());
-			mv.setViewName("admin_login");
 		}
 		else {
 			System.out.println("Error while adding Admin "+admin.getName()+" in database!");
-			mv.setViewName("error");
+			mv = new ModelAndView("redirect:/error");
 		}
 		return mv;
 	}
 
 	@GetMapping("/admins")
-	public ModelAndView admins() {
+	public ModelAndView admins(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() != "ADMIN") {
+			return new ModelAndView("redirect:/admin_login");
+		}
 		AdminDAO dao = new AdminDAOImpl();
 		List<Admin> admins = dao.findAll();
 		for(Admin i: admins) {

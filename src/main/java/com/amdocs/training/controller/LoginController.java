@@ -30,7 +30,7 @@ public class LoginController {
 	@PostMapping("/loginProcess")
 	public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response) {
 		
-		ModelAndView mv = new ModelAndView();
+		ModelAndView mv = new ModelAndView("user_dashboard");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
@@ -42,7 +42,6 @@ public class LoginController {
 			System.out.println("User "+user.getUser_id()+" is authenticated!");
 			mv.addObject("user", user);
 			mv.addObject("auth", auth);
-			mv.setViewName("user_dashboard");
 		}
 		else {
 			System.out.println("Error while Validating User "+username+" !");
