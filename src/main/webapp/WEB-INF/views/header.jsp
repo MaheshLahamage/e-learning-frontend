@@ -5,6 +5,12 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
+DIV.formtable 
+{
+	
+    width: 1000px;
+    margin: 25px 60px;
+}
 DIV.table 
 {
     display:table;
@@ -62,7 +68,6 @@ SPAN.td
 				<a class="nav-item nav-link" href="enrolled">Enrolled</a>
 				<a class="nav-item nav-link" href="users">Users</a>
 				<a class="nav-item nav-link" href="admins">Admins</a>
-				<a class="nav-item nav-link" href="admin_registration">Add Admin</a>
 			</c:if>  
 			<c:if test="${auth.roll == 'USER'}">
 	    		<a class="nav-item" >User ${auth.username}</a>

@@ -11,20 +11,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.amdocs.training.dao.AdminDAO;
+import com.amdocs.training.dao.EnrollDAO;
 import com.amdocs.training.dao.impl.AdminDAOImpl;
+import com.amdocs.training.dao.impl.EnrollDAOImpl;
 import com.amdocs.training.model.Admin;
 import com.amdocs.training.model.Auth;
+import com.amdocs.training.model.Enroll;
 
 @Controller
 public class AdminController {
 
 //Admin Registration Controller
-
-	@GetMapping("/admin_registration")
-	public ModelAndView adminsign_up() {
-		return new ModelAndView("admin_registration");
-	}
-	
+//
+//	@GetMapping("/admin_registration")
+//	public ModelAndView adminsign_up() {
+//		return new ModelAndView("admin_registration");
+//	}
+//	
 	@PostMapping("/adminregistrationProcess")
 	public ModelAndView adminsign_up(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("redirect:/admins");
@@ -63,4 +66,26 @@ public class AdminController {
 		
 		return mv;
 	}
+
+	@PostMapping("/delAdminProcess")
+	public ModelAndView delAdmin(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() != "ADMIN") {
+			return new ModelAndView("redirect:/admin_login");
+		}
+		ModelAndView mv = new ModelAndView("redirect:/admins");
+		int admin_id = Integer.parseInt(request.getParameter("admin_id"));
+		
+		System.out.println("**********************"+admin_id+"**********************");
+		AdminDAO admindao = new AdminDAOImpl();
+		if(admindao.deleteAdmin(admin_id)) {
+			System.out.println("Admin "+admin_id+" Removed from database!");
+		}
+		else {
+			System.out.println("Error while removing Admin "+admin_id+" from database!");
+			mv.setViewName("error");
+		}
+		return mv;
+	}
+	
 }

@@ -7,34 +7,82 @@
 </head>
 <body>
 	<div class="container jumbotron">
-	<div class="panel-heading"><span class="lead">List of Users </span></div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>User Id</th>
-                        <th>Username</th>
-                        <th>Phone No.</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Reg. Date</th>
-                        <th>Photo</th>
-                    </tr>
-                </thead>
-                <tbody>
+	<div class="panel-heading"><span class="lead">All Users </span></div>
+		<div class="table">
+			    <div class="th">
+                        <span class="td">User Id</span>
+                        <span class="td">Username</span>
+                        <span class="td">Phone No.</span>
+                        <span class="td">Email</span>
+                        <span class="td">Address</span>
+                        <span class="td">Reg. Date</span>
+                        <span class="td">Photo</span>
+                        <span class="td"></span>
+                        <span class="td"></span>
+			    </div>
                 <c:forEach items="${users}" var="user">
-                    <tr>
-                        <td>${user.user_id}</td>
-                        <td>${user.name}</td>
-                        <td>${user.phone_no}</td>
-                        <td>${user.email}</td>
-                        <td>${user.address}</td>
-                        <td>${user.reg_date}</td>
-                        <td>${user.upload_photo}</td>
-                    </tr>
+                    
+			    	<div class="tr">
+			    	
+                         <span class="td">${user.user_id} </span>
+                         <span class="td">${user.name} </span>
+                         <span class="td">${user.phone_no} </span>
+                         <span class="td">${user.email} </span>
+                         <span class="td">${user.address} </span>
+                         <span class="td">${user.reg_date} </span>
+                         <span class="td">${user.upload_photo} </span>
+                      	
+                       	<form action="delUserProcess" method="Post" id="delform${user.user_id}">
+							<input type="hidden" id="user_id${user.user_id}" name="user_id" value="${user.user_id}">
+                        </form>
+				        <span class="td">
+	                        <button type="submit" form="delform${user.user_id}"class="btn btn-outline-danger">
+	                        	Remove
+	                        </button>
+	                    </span>
+                    </div>
+                    
+					<c:set var="i" value="${user.user_id}" />
                 </c:forEach>
-                </tbody>
-            </table>
-        </div>
-	</div>
+			</div>
+			
+			<div class="formtable">
+			    <form action="registrationProcess" method="Post" >
+			    <div class="th">
+                    <span class="td">User Id</span>
+                    <span class="td">Username</span>
+                    <span class="td">Phone No.</span>
+                    <span class="td">Email</span>
+                    <span class="td">Address</span>
+			    </div>
+			    <div class="tr">
+			        <span class="td">${i+1}</span>
+			        <span class="td"><input type="text" name="username"/></span>
+			        <span class="td"><input type="text" name="phone"/></span>
+			        <span class="td"><input type="email" name="email"/></span>
+			        <span class="td"><input type="text" name="address"/></span>
+		        </div>
+			    <div class="th">
+			        <span class="td"></span>
+                    <span class="td">Reg. Date</span>
+                    <span class="td">Photo</span>
+                    <span class="td">Password</span>
+			        <span class="td"></span>
+			    </div>
+			    
+			    <div class="tr">
+			        <span class="td"></span>
+			        <span class="td"><input type="text" name="reg_date"/></span>
+			        <span class="td"><input type="text" name="upload_photo"/></span>
+			        <span class="td"><input type="password" name="password"/></span>
+			        
+			        <span class="td">
+                        <button type="submit" class="btn btn-outline-primary">
+                        Add
+                        </button>
+                    </span>
+                </div>
+			    </form>
+		    </div>
+		</div>
 </body>
-</html>

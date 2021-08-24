@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.amdocs.training.dao.AdminDAO;
 import com.amdocs.training.dao.UserDAO;
+import com.amdocs.training.dao.impl.AdminDAOImpl;
 import com.amdocs.training.dao.impl.UserDAOImpl;
+import com.amdocs.training.model.Auth;
 import com.amdocs.training.model.User;
 
 @Controller
@@ -24,7 +27,15 @@ public class UserController {
 	
 	@PostMapping("/registrationProcess")
 	public ModelAndView sign_up(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView();
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		
+		ModelAndView mv = null;
+		if(auth != null && auth.getRoll() == "ADMIN") {
+			mv = new ModelAndView("redirect:/users");
+		}
+		else {
+			mv = new ModelAndView("redirect:/user_login");
+		}
 		String username = request.getParameter("username");
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
@@ -39,7 +50,6 @@ public class UserController {
 		if(dao.saveUser(user)) {
 			System.out.println("User "+user.getUser_id()+" added in database!");
 			mv.addObject("username", user.getName());
-			mv.setViewName("user_login");
 		}
 		else {
 			System.out.println("Error while adding User "+user.getUser_id()+" in database!");
@@ -49,19 +59,43 @@ public class UserController {
 	}
 
 	@GetMapping("/users")
-	public ModelAndView all_users() {
+	public ModelAndView all_users(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() != "ADMIN") {
+			return new ModelAndView("redirect:/admin_login");
+		}
+		ModelAndView mv = new ModelAndView("all_users");
 		UserDAO dao = new UserDAOImpl();
 		List<User> users = dao.findAll();
 		for(User i: users) {
 			System.out.println(i);
 		}
-		ModelAndView mv = new ModelAndView();
 		mv.addObject("users", users);
-		mv.setViewName("all_users");
 		
 		return mv;
 	}
+	
 
+	@PostMapping("/delUserProcess")
+	public ModelAndView delUser(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() != "ADMIN") {
+			return new ModelAndView("redirect:/admin");
+		}
+		ModelAndView mv = new ModelAndView("redirect:/users");
+		int user_id = Integer.parseInt(request.getParameter("user_id"));
+		
+		System.out.println("**********************"+user_id+"**********************");
+		UserDAO admindao = new UserDAOImpl();
+		if(admindao.deleteUser(user_id)) {
+			System.out.println("User "+user_id+" Removed from database!");
+		}
+		else {
+			System.out.println("Error while removing User "+user_id+" from database!");
+			mv.setViewName("error");
+		}
+		return mv;
+	}
 //	@GetMapping("/user/{id}")
 //	public User getUser(@PathVariable int id) {
 //		User user = dao.getUserById(id);
