@@ -18,15 +18,15 @@ import com.amdocs.training.model.Feedback;
 @Controller
 public class FeedbackController {
 
-	@GetMapping("/add_feedback")
-	public ModelAndView add_feedback(HttpServletRequest request, HttpServletResponse response) {
-		Auth auth = (Auth) request.getSession().getAttribute("auth");
-		if(auth == null || auth.getRoll() == null) {
-			return new ModelAndView("redirect:/user_login");
-		}
-		return new ModelAndView("add_feedback");
-	}
-	
+//	@GetMapping("/add_feedback")
+//	public ModelAndView add_feedback(HttpServletRequest request, HttpServletResponse response) {
+//		Auth auth = (Auth) request.getSession().getAttribute("auth");
+//		if(auth == null || auth.getRoll() == null) {
+//			return new ModelAndView("redirect:/user_login");
+//		}
+//		return new ModelAndView("add_feedback");
+//	}
+//	
 	@PostMapping("/submit_feedback")
 	public ModelAndView submit_feeback(HttpServletRequest request, HttpServletResponse response) {
 		Auth auth = (Auth) request.getSession().getAttribute("auth");

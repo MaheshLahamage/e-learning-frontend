@@ -27,12 +27,12 @@ public class AdminController {
 	
 	@PostMapping("/adminregistrationProcess")
 	public ModelAndView adminsign_up(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("redirect:/admin_login");
+		ModelAndView mv = new ModelAndView("redirect:/admins");
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
-		Admin admin = new Admin(null, username, email, password);
+		Admin admin = new Admin(null, username, email,password);
 		System.out.println("**********************"+admin+"**********************");
 		AdminDAO dao = new AdminDAOImpl();
 		if(dao.saveAdmin(admin)) {

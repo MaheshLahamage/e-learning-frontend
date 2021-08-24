@@ -88,4 +88,56 @@ public class CourseController {
 		
 		return mv;
 	}
+
+	@PostMapping("/courseenrollProcess")
+	public ModelAndView enroll(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() == null) {
+			return new ModelAndView("redirect:/user_login");
+		}
+		ModelAndView mv = new ModelAndView("redirect:/courses");
+		int user_id = Integer.parseInt(request.getParameter("user_id"));
+		int course_id = Integer.parseInt(request.getParameter("course_id"));
+		
+		Enroll enroll = new Enroll(user_id,course_id);
+		System.out.println("**********************"+enroll+"**********************");
+		EnrollDAO dao = new EnrollDAOImpl();
+		if(dao.saveEnroll(enroll)) {
+			System.out.println("User "+enroll.getUser_id()+" added in database!");
+//			mv.addObject("username", enroll.getUser_id());
+//			mv.addObject("redirect", "courses");
+//			mv.setViewName("all_courses");
+		}
+		else {
+			System.out.println("Error while adding User "+enroll.getUser_id()+" in database!");
+			mv.setViewName("error");
+		}
+		return mv;
+	}
+	
+	@PostMapping("/courseunenrollProcess")
+	public ModelAndView unenroll(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() == null) {
+			return new ModelAndView("redirect:/user_login");
+		}
+		ModelAndView mv = new ModelAndView("redirect:/courses");
+		int user_id = Integer.parseInt(request.getParameter("user_id"));
+		int course_id = Integer.parseInt(request.getParameter("course_id"));
+		
+//		Enroll enroll = new Enroll(user_id,course_id);
+//		System.out.println("**********************"+enroll+"**********************");
+		EnrollDAO dao = new EnrollDAOImpl();
+		if(dao.deleteEnroll(user_id, course_id)) {
+			System.out.println("User : "+user_id+" unenrolled from course : "+course_id+" in database!");
+//			mv.addObject("username", enroll.getUser_id());
+//			mv.addObject("redirect", "courses");
+//			mv.setViewName("all_courses");
+		}
+		else {
+			System.out.println("Error while unenroll User : "+user_id+" course :"+course_id);
+			mv.setViewName("error");
+		}
+		return mv;
+	}
 }

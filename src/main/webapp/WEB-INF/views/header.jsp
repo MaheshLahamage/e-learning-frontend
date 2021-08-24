@@ -4,8 +4,43 @@
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
-   </head>
+<style>
+DIV.table 
+{
+    display:table;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+DIV.th{
+    display:table-row;
+    background-color: #c9ddff;
+    
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+}
+FORM.tr, DIV.tr
+{
+    display:table-row;
+    background-color: #dce8fc;
+    
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+}
+FORM.tr, DIV.tr:nth-of-type(even) {
+    background-color: #e8effa;
+}
+
+SPAN.td
+{
+    display:table-cell;
+    padding: 12px 15px;
+}
+</style>	
+</head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  <a class="navbar-brand" href="Home">Elerning</a>
@@ -22,14 +57,12 @@
 				<a class="nav-item nav-link" href="feedbacks">Feedbacks</a>
 			</c:if>    
 			<c:if test="${auth.roll == 'USER'}">
-				<a class="nav-item nav-link" href="add_contact">Add Contact</a>
-				<a class="nav-item nav-link" href="add_feedback">Add Feedback</a>
 			</c:if> 
 			<c:if test="${auth.roll == 'ADMIN'}">
-				<a class="nav-item nav-link" href="add_course">Add Cource</a>
+				<a class="nav-item nav-link" href="enrolled">Enrolled</a>
 				<a class="nav-item nav-link" href="users">Users</a>
 				<a class="nav-item nav-link" href="admins">Admins</a>
-				<a class="nav-item nav-link" href="admin_registration">Admin Registration</a>
+				<a class="nav-item nav-link" href="admin_registration">Add Admin</a>
 			</c:if>  
 			<c:if test="${auth.roll == 'USER'}">
 	    		<a class="nav-item" >User ${auth.username}</a>

@@ -18,14 +18,14 @@ import com.amdocs.training.model.Contact;
 @Controller
 public class ContactController {
 
-	@GetMapping("/add_contact")
-	public ModelAndView add_contact(HttpServletRequest request, HttpServletResponse response) {
-		Auth auth = (Auth) request.getSession().getAttribute("auth");
-		if(auth == null || auth.getRoll() == null) {
-			return new ModelAndView("redirect:/user_login");
-		}
-		return new ModelAndView("add_contact");
-	}
+//	@GetMapping("/add_contact")
+//	public ModelAndView add_contact(HttpServletRequest request, HttpServletResponse response) {
+//		Auth auth = (Auth) request.getSession().getAttribute("auth");
+//		if(auth == null || auth.getRoll() == null) {
+//			return new ModelAndView("redirect:/user_login");
+//		}
+//		return new ModelAndView("add_contact");
+//	}
 	
 	@PostMapping("/submit_contact")
 	public ModelAndView submit_feeback(HttpServletRequest request, HttpServletResponse response) {
