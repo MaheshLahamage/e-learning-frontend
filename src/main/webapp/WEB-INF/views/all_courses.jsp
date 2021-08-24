@@ -3,7 +3,31 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Course List</title>
-
+<style>
+	.btn{
+	  width: 100px;
+	}
+	.button {
+	  width: 100px; /* set a width so it doesnt change upon hover */
+	}
+	
+	.button:hover span {
+	  display:none
+	}
+	
+	.button:hover:before {
+	  content:"Unenroll";
+	}
+	
+	.button:hover {
+    color: #db4f4f;
+    background-color: #fff;
+    border: 0.5px solid #db4f4f;
+    background-image: none !important;
+    box-shadow: none;
+    box-shadow: inset 0 0 2rem rgba(219, 79, 79, .08);
+  }
+</style>
 </head>
 <body>
 	<div class="container jumbotron">
@@ -27,7 +51,7 @@
 	                        <td>${course.c_desp}</td>
 	                        <td>${course.c_resource}</td>
 	                        <td>
-		                        <form action="enrollProcess" method="Post" id="form${course.course_id}">
+		                        <form action="unenrollProcess" method="Post" id="form1${course.course_id}">
 									<c:if test="${auth.roll == 'ADMIN'}">
 										<input type="number" id="user_id" name="user_id">
 									</c:if>
@@ -37,8 +61,8 @@
 									<input type="hidden" id="course_id" name="course_id" value="${course.course_id}">
 								</form>
 							</td>
-	                        <td><button type="button" form="form${course.course_id}" class="btn btn-outline-success">Enrolled</button></td>
-	                        <td><button type="button" form="form${course.course_id}" class="btn btn-outline-danger">Unenroll</button></td>
+							
+	                        <td><button type="submit" form="form1${course.course_id}" class="btn btn-outline-success button"><span>Enrolled</span></button></td>
 	                    </tr>
 	                </c:forEach>
 	                </tbody>
@@ -74,8 +98,6 @@
 								</form>
 							</td>
 	                        <td><button type="submit" form="form${course.course_id}" class="btn btn-outline-primary">Enroll</button></td>
-	                        <td><button type="button" class="btn btn-outline-success">Enrolled</button></td>
-	                        <td><button type="button" class="btn btn-outline-danger">Unenroll</button></td>
 	                    </tr>
 	                </c:forEach>
 	                </tbody>

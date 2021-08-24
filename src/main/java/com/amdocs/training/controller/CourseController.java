@@ -1,5 +1,6 @@
 package com.amdocs.training.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +58,7 @@ public class CourseController {
 		CourseDAO dao = new CourseDAOImpl();
 		EnrollDAO enrolldao = new EnrollDAOImpl();
 		List<Course> courses = dao.findAll();
+		List<Course> other = new ArrayList<Course>(courses);
 		List<Course> enrolled = null;
 		if(auth.getRoll()=="USER") {
 			User user = (User)auth.getObj();
@@ -65,11 +67,14 @@ public class CourseController {
 		for(Course i: courses) {
 			System.out.println(i);
 		}
-		for(Course i: enrolled) {
-			System.out.println(i);
+		if(enrolled!=null) {
+			for(Course i: enrolled) {
+				System.out.println(i);
+			}
+			other.removeAll(enrolled);
 		}
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("courses", courses);
+		mv.addObject("courses", other);
 		mv.addObject("enrolled", enrolled);
 		mv.setViewName("all_courses");
 		
