@@ -67,9 +67,9 @@ public class UserController {
 		ModelAndView mv = new ModelAndView("all_users");
 		UserDAO dao = new UserDAOImpl();
 		List<User> users = dao.findAll();
-		for(User i: users) {
-			System.out.println(i);
-		}
+//		for(User i: users) {
+//			System.out.println(i);
+//		}
 		mv.addObject("users", users);
 		
 		return mv;

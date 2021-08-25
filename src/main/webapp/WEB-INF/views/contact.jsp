@@ -8,18 +8,17 @@
 <body>
 	<div class="container jumbotron">
 	<div class="panel-heading"><span class="lead">All Contacts</span></div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>User Id</th>
-                        <th>Username</th>
-                        <th>Phone No.</th>
-                        <th>Email</th>
-                        <th>Message</th>
-                    </tr>
-                </thead>
-                <tbody>
+           <div class="table">
+			    <div class="th">
+                        <span class="td">Id</span>
+                        <span class="td">User Id</span>
+                        <span class="td">Username</span>
+                        <span class="td">Phone No.</span>
+                        <span class="td">Email</span>
+                        <span class="td">Message</span>
+                        <span class="td"></span>
+                        <span class="td"></span>
+                 </div>
 				<c:if test="${auth.roll == 'USER'}">
 					<c:set var="Cont" scope="session" value="${contacts.stream().filter(c -> c.name == auth.username).toList()}"/>  
 				</c:if>
@@ -27,62 +26,63 @@
 					<c:set var="Cont" scope="session" value="${contacts}"/>  
 				</c:if>
 	                <c:forEach items="${Cont}" var="contact">
-	                    <tr>
-	                        <td>${contact.contact_id}</td>
-	                        <td>${contact.user_id}</td>
-	                        <td>${contact.name}</td>
-	                        <td>${contact.phone_no}</td>
-	                        <td>${contact.email}</td>
-	                        <td>${contact.message}</td>
-	                    </tr>
+	                    <div class="tr">
+	                        <span class="td">${contact.contact_id}</span>
+	                        <span class="td">${contact.user_id}</span>
+	                        <span class="td">${contact.name}</span>
+	                        <span class="td">${contact.phone_no}</span>
+	                        <span class="td">${contact.email}</span>
+	                        <span class="td">${contact.message}</span>
+	                        
+	                       	<form action="delContactProcess" method="Post" id="delform${contact.contact_id}">
+								<input type="hidden" id="contact_id${contact.contact_id}" name="contact_id" value="${contact.contact_id}">
+	                        </form>
+					        <span class="td">
+		                        <button type="submit" form="delform${contact.contact_id}"class="btn btn-outline-danger">
+		                        	Remove
+		                        </button>
+		                    </span>
+	                    </div>
+					<c:set var="i" value="${contact.contact_id}" />
 	                </c:forEach>
-	                
-                </tbody>
-            </table>
+                </div>
+                
+			<div class="panel-heading"><span class="lead">Add Contact </span></div>
+			<div class="table">
+			    <form name="my-form" action="submit_contact" method="Post">
+			    <div class="th">
+                    <span class="td">Contact Id</span>
+                    <span class="td">User Id</span>
+                    <span class="td">Username</span>
+                    <span class="td">Phone No.</span>
+                    <span class="td">Email</span>
+                    <span class="td">Message</span>
+                    <span class="td"></span>
+			    </div>
+			    <div class="tr">
+			        <span class="td">${i+1}</span>
+    				<c:if test="${auth.roll == 'USER'}">
+                       	<input type="hidden" id="user_id" name="user_id"  value="${auth.obj.user_id }">
+                       	<input type="hidden" id="username" name="username" value="${auth.obj.name }">
+				        <span class="td">${auth.obj.user_id }</span>
+				        <span class="td">${auth.obj.name }</span>
+                    </c:if>
+                    <c:if test="${auth.roll == 'ADMIN'}">
+        				<span class="td"><input type="number" name="user_id"/></span>
+       					<span class="td"><input type="text" name="username"/></span>
+                    </c:if>
+			        <span class="td"><input type="text" name="phone"/></span>
+			        <span class="td"><input type="email" name="email"/></span>
+			        <span class="td"><input type="text" name="message"/></span>
+		        
+			        <span class="td">
+                        <button type="submit" class="btn btn-outline-primary">
+                        Add
+                        </button>
+                    </span>
+                </div>
+			    </form>
+		    </div>
             
-                        <div class="card-header"><h4>Add Contact</h4></div>
-                        <div class="card-body">
-                            <form name="my-form" action="submit_contact" method="Post" >
-								<c:if test="${auth.roll == 'USER'}">
-                                	<input type="hidden" id="user_id" name="user_id"  value="${auth.obj.user_id }">
-                                </c:if>
-                                <c:if test="${auth.roll == 'ADMIN'}">
-									<div class="form-group row">
-									    <label for="user_id" class="col-md-4 col-form-label text-md-right">User ID</label>
-									    <div class="col-md-6">
-									        <input type="number" id="user_id" class="form-control" name="user_id">
-									    </div>
-									</div>
-                                </c:if>
-                                <input type="hidden" id="username" name="username" value="${auth.obj.name }">
-                                
-                                <div class="form-group row">
-                                    <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail</label>
-                                    <div class="col-md-6">
-                                        <input type="email" id="email" class="form-control" name="email">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="phone" class="col-md-4 col-form-label text-md-right">Phone Number</label>
-                                    <div class="col-md-6">
-                                        <input type="number" id="phone" class="form-control" name="phone">
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group row">
-                                    <label for="message" class="col-md-4 col-form-label text-md-right">Message</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="message" class="form-control" name="message">
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                    Add Contact
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
         </div>
 </body>

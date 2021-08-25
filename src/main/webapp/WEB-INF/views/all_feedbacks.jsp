@@ -4,33 +4,45 @@
 <meta charset="ISO-8859-1">
 <title>Feedback List</title>
 
+<style>
+</style>
 </head>
 <body>
 	<div class="container jumbotron">
 	<div class="panel-heading"><span class="lead">List of Feedbacks </span></div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>User Id</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Feedback</th>
-                    </tr>
-                </thead>
-                <tbody>
+                 <div class="table">
+			    <div class="th">
+                        <span class="td">Id</span>
+                        <span class="td">User Id</span>
+                        <span class="td">Username</span>
+                        <span class="td">Email</span>
+                        <span class="td">Feedback</span>
+						<c:if test="${auth.roll == 'ADMIN'}">
+                        <span class="td"></span>
+                        <span class="td"></span>
+						</c:if>
+                    </div>
                 <c:forEach items="${feedbacks}" var="feedback">
-                    <tr>
-                        <td>${feedback.f_id}</td>
-                        <td>${feedback.user_id}</td>
-                        <td>${feedback.name}</td>
-                        <td>${feedback.email}</td>
-                        <td>${feedback.feedback}</td>
-                    </tr>
+                    <div class="tr">
+                        <span class="td">${feedback.f_id}</span>
+                        <span class="td">${feedback.user_id}</span>
+                        <span class="td">${feedback.name}</span>
+                        <span class="td">${feedback.email}</span>
+                        <span class="td">${feedback.feedback}</span>
+                        
+						<c:if test="${auth.roll == 'ADMIN'}">
+	                       	<form action="delFeedbackProcess" method="Post" id="delform${feedback.f_id}">
+								<input type="hidden" id="f_id${feedback.f_id}" name="f_id" value="${feedback.f_id}">
+	                        </form>
+					        <span class="td">
+		                        <button type="submit" form="delform${feedback.f_id}"class="btn btn-outline-danger">
+		                        	Remove
+		                        </button>
+		                    </span>
+	                    </c:if>
+                    </div>
                 </c:forEach>
-                </tbody>
-            </table>
-            
+                </div>   
 			<c:if test="${auth.roll == 'USER'}">
                 <div class="card-header"><h4>Add Feedback</h4></div>
                 <div class="card-body">

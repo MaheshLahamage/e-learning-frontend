@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.amdocs.training.dao.ContactDAO;
+import com.amdocs.training.dao.UserDAO;
 import com.amdocs.training.dao.impl.ContactDAOImpl;
+import com.amdocs.training.dao.impl.UserDAOImpl;
 import com.amdocs.training.model.Auth;
 import com.amdocs.training.model.Contact;
 
@@ -70,6 +72,27 @@ public class ContactController {
 		}
 		mv.addObject("contacts", contacts);
 		
+		return mv;
+	}
+
+	@PostMapping("/delContactProcess")
+	public ModelAndView delUser(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() == null) {
+			return new ModelAndView("redirect:/user_login");
+		}
+		ModelAndView mv = new ModelAndView("redirect:/contacts");
+		int contact_id = Integer.parseInt(request.getParameter("contact_id"));
+		
+		System.out.println("**********************"+contact_id+"**********************");
+		ContactDAO contactdao = new ContactDAOImpl();
+		if(contactdao.deleteContact(contact_id)) {
+			System.out.println("Contact "+contact_id+" Removed from database!");
+		}
+		else {
+			System.out.println("Error while removing Contact "+contact_id+" from database!");
+			mv.setViewName("error");
+		}
 		return mv;
 	}
 }

@@ -2,7 +2,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>eLearning Online Portal</title>
-
+<style>
+.container{
+	background-image: linear-gradient(to left bottom, #d3d4f5, #cbcff7, #c2cbf9, #b8c7fc, #adc3fe);
+	margin-top: 30px;
+	height: 400px;
+}
+</style>
 </head>
 <body>
 

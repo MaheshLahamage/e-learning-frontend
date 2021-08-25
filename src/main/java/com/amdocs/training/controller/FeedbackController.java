@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.amdocs.training.dao.CourseDAO;
 import com.amdocs.training.dao.FeedbackDAO;
+import com.amdocs.training.dao.impl.CourseDAOImpl;
 import com.amdocs.training.dao.impl.FeedbackDAOImpl;
 import com.amdocs.training.model.Auth;
 import com.amdocs.training.model.Feedback;
@@ -68,6 +70,27 @@ public class FeedbackController {
 		mv.addObject("feedbacks", feedbacks);
 		mv.setViewName("all_feedbacks");
 		
+		return mv;
+	}
+
+	@PostMapping("/delFeedbackProcess")
+	public ModelAndView delCourse(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() != "ADMIN") {
+			return new ModelAndView("redirect:/admin_login");
+		}
+		ModelAndView mv = new ModelAndView("redirect:/feedbacks");
+		int f_id = Integer.parseInt(request.getParameter("f_id"));
+		
+		System.out.println("**********************"+f_id+"**********************");
+		FeedbackDAO feedbackdao = new FeedbackDAOImpl();
+		if(feedbackdao.deleteFeedback(f_id)) {
+			System.out.println("Feedback "+f_id+" Removed from database!");
+		}
+		else {
+			System.out.println("Error while removing Feedback "+f_id+" from database!");
+			mv.setViewName("error");
+		}
 		return mv;
 	}
 }

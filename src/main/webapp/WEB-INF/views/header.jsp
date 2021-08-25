@@ -45,6 +45,35 @@ SPAN.td
     display:table-cell;
     padding: 12px 15px;
 }
+.navbar{
+	background-image: linear-gradient(to left bottom, #d3d4f5, #c2c7f7, #b0baf9, #9baefb, #82a3fd);
+    
+}
+.user{
+	margin: 0 30px;
+}
+.admin{
+	margin: 0 30px;
+}
+.btn-info{
+	background-image: linear-gradient(to right, #7074f0, #707ef2, #7288f4, #7692f5, #7b9bf5);
+	border: 0 ;
+}
+.container{
+	background-image: linear-gradient(to left bottom, #d3d4f5, #d0d4f8, #ccd3fa, #c8d3fd, #c3d3ff);
+	margin-top: 30px;
+}
+.card-header{
+	background-image: linear-gradient(to right top, #987aef, #a58ff4, #b3a3f8, #c1b7fb, #d1cbfd);
+}
+.card-body{
+	background-image: linear-gradient(to right top, #b299f9, #b9a6fb, #c0b2fc, #c8bffd, #d1cbfd);
+}
+.btn-primary{
+	background-image: linear-gradient(to right top, #8258f8, #8a6bf9, #937cf8, #9d8df7, #a89df5);
+	border: 0 ;
+	width: 100px;
+}
 </style>	
 </head>
 <body>
@@ -54,7 +83,7 @@ SPAN.td
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-	    <div class="navbar-nav">
+	    <div class="navbar-nav ">
 			<a class="nav-item nav-link active" href="Home">Home <span class="sr-only">(current)</span></a>
 				 
 			<c:if test="${auth.roll != null}">
@@ -69,16 +98,19 @@ SPAN.td
 				<a class="nav-item nav-link" href="users">Users</a>
 				<a class="nav-item nav-link" href="admins">Admins</a>
 			</c:if>  
+			</div>
+			<div class="navbar-nav ml-auto">
 			<c:if test="${auth.roll == 'USER'}">
-	    		<a class="nav-item" >User ${auth.username}</a>
-	    		<a href="logout" class="nav-item btn btn-info btn-sm">
-		          <span class="glyphicon glyphicon-log-out"></span> Log out
+	    		<a class="nav-item user" >User ${auth.username}</a>
+	    		<a href="logout"></a>
+	    		<a href="logout" class="nav-item btn btn-info">
+		          <i class="icon-off"></i> Logout
 		        </a>
 			</c:if>   
 			<c:if test="${auth.roll == 'ADMIN'}">
-	    		<a class="nav-item">Admin ${auth.username}</a>
-	    		<a href="logout" class="nav-item btn btn-info btn-sm">
-		          <span class="glyphicon glyphicon-log-out"></span> Log out
+	    		<a class="nav-item admin">Admin ${auth.username}</a>
+	    		<a href="logout" class="nav-item btn btn-info">
+		          <i class="icon-off"></i> Logout
 		        </a>
 			</c:if>   
 			<c:if test="${auth.roll == null}">

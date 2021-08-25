@@ -46,6 +46,7 @@
                 </c:forEach>
 			</div>
 			
+	<div class="panel-heading"><span class="lead">Add User </span></div>
 			<div class="formtable">
 			    <form action="registrationProcess" method="Post" >
 			    <div class="th">

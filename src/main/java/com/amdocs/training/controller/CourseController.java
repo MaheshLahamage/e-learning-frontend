@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.amdocs.training.dao.ContactDAO;
 import com.amdocs.training.dao.CourseDAO;
 import com.amdocs.training.dao.EnrollDAO;
+import com.amdocs.training.dao.UserDAO;
+import com.amdocs.training.dao.impl.ContactDAOImpl;
 import com.amdocs.training.dao.impl.CourseDAOImpl;
 import com.amdocs.training.dao.impl.EnrollDAOImpl;
+import com.amdocs.training.dao.impl.UserDAOImpl;
 import com.amdocs.training.model.Auth;
 import com.amdocs.training.model.Course;
 import com.amdocs.training.model.Enroll;
@@ -66,10 +70,23 @@ public class CourseController {
 		}
 		ModelAndView mv = new ModelAndView("all_courses");
 		CourseDAO dao = new CourseDAOImpl();
+		UserDAO userdao = new UserDAOImpl();
 		EnrollDAO enrolldao = new EnrollDAOImpl();
 		List<Course> courses = dao.findAll();
 		List<Course> other = new ArrayList<Course>(courses);
 		List<Course> enrolled = null;
+		List<Enroll> enroll = enrolldao.findAll();
+
+		List<User> enrolledusers = new ArrayList<User>();
+		List<Course> enrolledcourses = new ArrayList<Course>();
+		if(enroll!=null) {
+			for(Enroll e: enroll) {
+				enrolledusers.add(userdao.getUserById(e.getUser_id()));
+				enrolledcourses.add(dao.getCourseById(e.getCourse_id()));
+			}
+		}
+		mv.addObject("enrolledusers", enrolledusers);
+		mv.addObject("enrolledcourses", enrolledcourses);
 		if(auth.getRoll()=="USER") {
 			User user = (User)auth.getObj();
 			enrolled = enrolldao.getEnrolledCourses(user.getUser_id());
@@ -136,6 +153,27 @@ public class CourseController {
 		}
 		else {
 			System.out.println("Error while unenroll User : "+user_id+" course :"+course_id);
+			mv.setViewName("error");
+		}
+		return mv;
+	}
+
+	@PostMapping("/delCourseProcess")
+	public ModelAndView delCourse(HttpServletRequest request, HttpServletResponse response) {
+		Auth auth = (Auth) request.getSession().getAttribute("auth");
+		if(auth == null || auth.getRoll() != "ADMIN") {
+			return new ModelAndView("redirect:/admin_login");
+		}
+		ModelAndView mv = new ModelAndView("redirect:/courses");
+		int course_id = Integer.parseInt(request.getParameter("course_id"));
+		
+		System.out.println("**********************"+course_id+"**********************");
+		CourseDAO coursedao = new CourseDAOImpl();
+		if(coursedao.deleteCourse(course_id)) {
+			System.out.println("Course "+course_id+" Removed from database!");
+		}
+		else {
+			System.out.println("Error while removing course "+course_id+" from database!");
 			mv.setViewName("error");
 		}
 		return mv;
